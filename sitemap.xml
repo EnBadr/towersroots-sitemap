@@ -1,0 +1,29 @@
+const fs = require('fs');
+
+const urls = [
+  'https://www.towersroots.com/',
+  'https://www.towersroots.com/home',
+  'https://www.towersroots.com/equipments-rental',
+  'https://www.towersroots.com/about',
+  'https://www.towersroots.com/services',
+  'https://www.towersroots.com/contact'
+];
+
+const today = new Date().toISOString().split('T')[0];
+
+let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+urls.forEach(url => {
+  sitemap += `  <url>\n`;
+  sitemap += `    <loc>${url}</loc>\n`;
+  sitemap += `    <lastmod>${today}</lastmod>\n`;
+  sitemap += `    <priority>0.8</priority>\n`;
+  sitemap += `  </url>\n`;
+});
+
+sitemap += `</urlset>`;
+
+fs.writeFileSync('sitemap.xml', sitemap);
+
+console.log('✅ Sitemap generated as sitemap.xml');
